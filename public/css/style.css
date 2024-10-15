@@ -26,23 +26,21 @@ fieldset .inputs {
     margin-top: 50px;
 }
 
-.inputs label {
-    display: flex;
-    flex-direction: column;
-}
 
 .inputs input[type="text"] {
-    margin-bottom: 22px;
+    margin-bottom: 35px;
     width: 19vw;
     border: 0px;
     border-bottom: 2px solid #aaa;
     outline: 0;
     padding: 5px;
     transition: all ease 0.5s;
+    font-size: 12px;
 }
 
 .inputs input[type="text"]::placeholder {
     font-size: 12px;
+    position: absolute;
 }
 
 .inputs input[type="text"]:focus {
@@ -79,4 +77,19 @@ input[type="button"]:hover {
     color: black;
     text-decoration: none;
     font-weight: 500;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.error {
+    font-size: 11px;
+    margin-left: 10px;
+    margin-top: 30px;
+    color: red;
+    position: absolute;
+    display: none;
 }

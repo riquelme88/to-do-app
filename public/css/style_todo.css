@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    height: 45vh;
+    width: 100vw;
+    box-shadow: 0px 0px 5px #888;
+}
+
+header img {
+    height: 100%;
+    width: 100%;
+}
+
+main {
+    width: 32vw;
+    height: 82vh;
+    position: absolute;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main h1 {
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+}
+
+.text-area {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.text-area input[type="checkbox"] {
+    position: absolute;
+    margin-left: 10px;
+}
+
+.text-area input[type="text"] {
+    width: 100%;
+    height: 3rem;
+    border-radius: 4px;
+    border: 0px;
+    outline: 0;
+    box-shadow: 0px 0px 5px #aaa;
+    padding-left: 35px;
+}
+
+.text-area input[type="text"]::placeholder {
+    color: #999;
+}
+
+input[type="checkbox"] {
+    all: initial;
+    border: 1px solid black;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background: linear-gradient(-70deg, #34c2ef, #906ffa);
+}
+
+.tasks {
+    margin-top: 1rem;
+    height: calc(100%);
+    background-color: white;
+    border-radius: 5px 5px 0px 0px;
+    box-shadow: 0px -1px 5px #aaa;
+}
+
+.task {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    align-items: center;
+}
+
+.task p {
+    margin-left: 15px;
+}
+
+.remove {
+    position: absolute;
+    margin-left: 90%;
+    cursor: pointer;
+    color: #777;
+    transition: all ease 1s;
+    display: none;
+    opacity: 0;
+}
+
+.args-task {
+    display: flex;
+    font-size: 0.7rem;
+    justify-content: space-between;
+    padding: 8px 6px 8px 6px;
+    border-top: 1px solid #ccc;
+    color: #666;
+    box-shadow: 0px 1px 5px #aaa;
+    border-radius: 0px 0px 2px 2px;
+}
+
+#args {
+    display: flex;
+    justify-content: space-around;
+    width: 33%;
+}
+
+#args p {
+    cursor: pointer;
+}
+
+#args p:hover {
+    color: black;
+}
+
+.active {
+    color: blue !important;
+}
+
+#clear {
+    cursor: pointer;
+}
+
+
+#clear:hover {
+    color: black;
+}
