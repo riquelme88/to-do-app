@@ -1,0 +1,35 @@
+Banco de dados : 
+
+Coleções : 
+
+User : 
+ -Name
+ -Email
+ -Password
+
+ Tasks : 
+ -idUser
+ -Task 
+ -completed
+ -category
+
+
+ {
+  "_id": {
+    "$oid": "670f1ff5a660067c2ff3d638"
+  },
+  "user": {
+    "name": "Riquelme",
+    "email": "riquelmesenna577@gmail.com",
+    "password": "flamengo98"
+  },
+  "tasks": {
+    "task": [
+      {
+        "name": "Fazer o arroz",
+        "completed": true,
+        "category": "trabalho"
+      }
+    ]
+  }
+}
