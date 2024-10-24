@@ -25,7 +25,7 @@ export const registerUser: RequestHandler = async (req, res) => {
 
     if (!user) { return res.status(401).json({ error: 'Usuario inválido' }) }
 
-    res.json({ user })
+    res.status(201).json({ user })
 
 }
 

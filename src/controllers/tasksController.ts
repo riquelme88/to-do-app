@@ -23,7 +23,7 @@ export const addTask = async (req: ExtendedRequest, res: Response) => {
 
     const userEmail = req.userEmail
     const user = await getUser(userEmail as string)
-    if (!user) { return res.json({ error: 'Não autorizado' }) }
+    if (!user) { return res.status(400).json({ error: 'Não autorizado' }) }
 
     const task = await newTask({
         task: safeData.data?.task as string,
@@ -39,9 +39,9 @@ export const addTask = async (req: ExtendedRequest, res: Response) => {
         }
     })
 
-    if (!task) { return res.json({ error: 'Ocorreu algum erro' }) }
+    if (!task) { return res.status(400).json({ error: 'Ocorreu algum erro' }) }
 
-    res.json({ task })
+    res.status(201).json({ task })
 
 }
 
@@ -55,10 +55,10 @@ export const updateTask = async (req: ExtendedRequest, res: Response) => {
     const userEmail = req.userEmail
 
     const user = await findUserByEmail(userEmail as string)
-    if (!user) { return res.json({ error: 'Ocorreu algum error!' }) }
+    if (!user) { return res.status(400).json({ error: 'Ocorreu algum error!' }) }
 
     const task = await findTaskByName(safeDataName.data.name as string, user.id)
-    if (!task) { return res.json({ error: 'Nenhuma task encontrada' }) }
+    if (!task) { return res.status(400).json({ error: 'Nenhuma task encontrada' }) }
 
 
     const updatedTask = await updateTaskService(task.id, {
@@ -66,7 +66,7 @@ export const updateTask = async (req: ExtendedRequest, res: Response) => {
         task: safeData.data?.task
     })
 
-    res.json({ updatedTask })
+    res.status(202).json({ updatedTask })
 }
 
 export const toogleCompleted = async (req: ExtendedRequest, res: Response) => {
@@ -76,17 +76,17 @@ export const toogleCompleted = async (req: ExtendedRequest, res: Response) => {
     const userEmail = req.userEmail
 
     const user = await findUserByEmail(userEmail as string)
-    if (!user) { return res.json({ error: 'Ocorreu algum error!' }) }
+    if (!user) { return res.status(400).json({ error: 'Ocorreu algum error!' }) }
 
     const task = await findTaskByName(safeData.data.name as string, user.id)
-    if (!task) { return res.json({ error: 'Nenhuma task encontrada' }) }
+    if (!task) { return res.status(400).json({ error: 'Nenhuma task encontrada' }) }
 
     if (task?.completed == true) {
         const updatedTask = await toogleTask(task.id, false)
-        return res.json({ updatedTask })
+        return res.status(202).json({ updatedTask })
     } else {
         const updatedTask = await toogleTask(task?.id as string, true)
-        return res.json({ updatedTask })
+        return res.status(202).json({ updatedTask })
     }
 }
 
@@ -97,13 +97,13 @@ export const deleteTask = async (req: ExtendedRequest, res: Response) => {
     const userEmail = req.userEmail
 
     const user = await findUserByEmail(userEmail as string)
-    if (!user) { return res.json({ error: 'Ocorreu algum error!' }) }
+    if (!user) { return res.status(400).json({ error: 'Ocorreu algum error!' }) }
 
     const task = await findTaskByName(safeData.data?.name as string, user.id)
-    if (!task) { return res.json({ error: 'Não foi encontrada nenhuma task!' }) }
+    if (!task) { return res.status(400).json({ error: 'Não foi encontrada nenhuma task!' }) }
 
     const taskDeleted = await removeTask(task.id)
-    if (!taskDeleted) { return res.json({ error: 'Ocorreu erro ao deletar!' }) }
+    if (!taskDeleted) { return res.status(400).json({ error: 'Ocorreu erro ao deletar!' }) }
 
     res.json({ taskDeleted: 'Task deletada' })
 }

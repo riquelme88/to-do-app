@@ -13,11 +13,11 @@ router.get('/ping', (req, res) => {
 router.post('/login', authController.loginUser)
 router.post('/register', authController.registerUser)
 
-router.post('/task', middleware as any, tasksController.addTask as any)
-router.get('/tasks', middleware as any, tasksController.getTasks as any)
-router.put('/tasks', middleware, tasksController.updateTask as any)
-router.put('/task', middleware, tasksController.toogleCompleted as any)
-router.delete('/task', middleware, tasksController.deleteTask as any)
+router.post('/task', middleware as any, tasksController.addTask)
+router.get('/tasks', middleware as any, tasksController.getTasks)
+router.put('/tasks', middleware, tasksController.updateTask)
+router.put('/task', middleware, tasksController.toogleCompleted)
+router.delete('/task', middleware, tasksController.deleteTask)
 
 router.get('/tasks/category', middleware, categoryController.getCategory)
 
