@@ -1,16 +1,16 @@
 import { RequestHandler } from "express";
-import { addUserSchema, loginUserSchema } from "../schemas/authSchema";
+import { addUserSchema, loginUserSchema } from "../validation/authSchema";
 import bcrypt from 'bcrypt'
-import { payload } from "../middleware/auth";
-import { newUser } from "../services/auth";
-import { findUserByEmail } from "../services/user";
+import { payload } from "../middleware/authMiddleware";
+import { newUser } from "../Model/auth";
+import { findUserByEmail } from "../Model/user";
 
 export const registerUser: RequestHandler = async (req, res) => {
     const safeData = addUserSchema.safeParse(req.body)
-    if (!safeData.success) { res.status(401).json({ error: safeData.error.flatten().fieldErrors }) }
+    if (!safeData.success) res.status(401).json({ error: safeData.error.flatten().fieldErrors })
 
     const hasUser = await findUserByEmail(safeData.data?.email as string)
-    if (hasUser) { return res.status(401).json({ error: 'Usuario já existente' }) }
+    if (hasUser) return res.status(401).json({ error: 'Usuario já existente' })
 
     const password = await bcrypt.hash(safeData.data?.password as string, 10)
 
@@ -23,7 +23,7 @@ export const registerUser: RequestHandler = async (req, res) => {
         token,
     })
 
-    if (!user) { return res.status(401).json({ error: 'Usuario inválido' }) }
+    if (!user) return res.status(401).json({ error: 'Usuario inválido' })
 
     res.status(201).json({ user })
 
@@ -31,13 +31,13 @@ export const registerUser: RequestHandler = async (req, res) => {
 
 export const loginUser: RequestHandler = async (req, res) => {
     const safeData = loginUserSchema.safeParse(req.body)
-    if (!safeData.success) { res.status(401).json({ error: safeData.error.flatten().fieldErrors }) }
+    if (!safeData.success) res.status(401).json({ error: safeData.error.flatten().fieldErrors })
 
     const user = await findUserByEmail(safeData.data?.email as string)
-    if (!user) { res.status(401).json({ error: 'Email/senha incorreta' }) }
+    if (!user) res.status(401).json({ error: 'Email/senha incorreta' })
 
     const password = await bcrypt.compare(safeData.data?.password as string, user?.password as string)
-    if (!password) { return res.status(401).json({ error: 'Email/senha incorretos' }) }
+    if (!password) return res.status(401).json({ error: 'Email/senha incorretos' })
 
     res.json({ user: user?.name, token: user?.token })
 
